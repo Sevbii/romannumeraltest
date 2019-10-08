@@ -15,27 +15,26 @@ function Calculate(){
         var tempValue;
         var output = "";
         for (z=6; z>=0; z--){
-            if (input == 4 || input == 9){
-                if (input == 4){
-                    output += "IV";
-                    input = 0;
-                }
-                else{
-                    output += "IX";
-                    input = 0;
-                }
-            }
-            else{
-                tempName = arr[z];
-                tempValue = window[tempName];
-                tempDivide = input/tempValue;
-                if (tempDivide >= 1){
-                    tempDivide = Math.floor(tempDivide);
-                    for (i=0; i<tempDivide; i++){
-                        output += tempName;
-                    }
+            tempName = arr[z];
+            tempValue = window[tempName];
+            tempDivide = Math.floor(input/tempValue);
+            if ((tempName != "M") && (tempDivide == 4 || tempDivide == 9)){
+                if (tempDivide == 4){
+                    output += tempName;
+                    output += arr[z+1];
                     input -= tempDivide * tempValue;
                 }
+                if (tempDivide == 9){
+                    output += tempName;
+                    output += arr[z+2];
+                    input -= tempDivide * tempValue;
+                }
+            }
+            else if (tempDivide >= 1){
+                for (i=0; i<tempDivide; i++){
+                    output += tempName;
+                }
+                input -= tempDivide * tempValue;
             }
         }
         document.getElementById("Output").innerHTML = output;
